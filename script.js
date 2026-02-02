@@ -49,7 +49,7 @@ const products = {
         title: 'Masala Appalam',
         subtitle: 'Spicy & Aromatic',
         description: 'Infused with cracked black pepper and roasted cumin (jeera) for a distinct, flavorful kick. This appalam brings a burst of spice that perfectly complements mild curries and rice dishes.',
-        ingredients: 'Urad Dal, Black Pepper, Cumin, Red Chilli Powder, Salt, Oil',
+        ingredients: 'Urad Dal, Black Pepper or Cumin(Jeera), Asafoetida , Salt, Oil',
         bestFor: 'Spicy Lovers, Evening Snacks, Special Occasions',
         image: 'assets/images/masala-appalam.jpg'
     },
@@ -57,7 +57,7 @@ const products = {
         title: 'Crisps & Urad Chips',
         subtitle: 'Thick & Crunchy',
         description: 'Perfectly sun-dried and thicker than regular appalams, these Urad Chips offer a satisfying crunch. They are ideal as a standalone snack or a crunchy side dish for variety rice.',
-        ingredients: 'Premium Urad Dal, Rice Flour, Asafoetida, Salt, Oil',
+        ingredients: 'Premium Urad Dal, Cumin(Jeera), Asafoetida, Salt, Oil',
         bestFor: 'Snacking, Variety Rice (Lemon/Tomato Rice), Dipping',
         image: 'assets/images/urad-chips.jpg'
     }
