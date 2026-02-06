@@ -1,5 +1,15 @@
 console.log("Script loaded and running");
 
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+            preloader.style.display = 'none';
+        }, 500); // Wait for transition to finish
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     // Mobile Menu Toggle logic
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
