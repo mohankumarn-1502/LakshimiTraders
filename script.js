@@ -104,3 +104,81 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
+// Double-tap to view details (works on Desktop and Touch)
+document.addEventListener('DOMContentLoaded', () => {
+    const productCards = document.querySelectorAll('.product-card');
+
+    productCards.forEach(card => {
+        // Desktop dblclick
+        card.addEventListener('dblclick', function () {
+            const productId = this.getAttribute('data-product-id');
+            if (productId) openProductModal(productId);
+        });
+
+        // Mobile/Touch double tap detection
+        let lastTap = 0;
+        card.addEventListener('touchend', function (e) {
+            const currentTime = new Date().getTime();
+            const tapLength = currentTime - lastTap;
+
+            // Double tap detected (within 500ms and not a phantom tap)
+            if (tapLength < 500 && tapLength > 0) {
+                e.preventDefault(); // Prevent zoom
+                const productId = this.getAttribute('data-product-id');
+                if (productId) openProductModal(productId);
+            }
+            lastTap = currentTime;
+        });
+    });
+
+    // Mobile Carousel Auto-Rotation
+    const productList = document.getElementById('product-list');
+    let rotationInterval;
+
+    function startRotation() {
+        stopRotation(); // Clear interval if exists
+
+        rotationInterval = setInterval(() => {
+            if (!productList) return;
+
+            // Only rotate if there is content to scroll
+            if (productList.scrollWidth <= productList.clientWidth) return;
+
+            const cardWidth = productList.querySelector('.product-card').offsetWidth;
+            const gap = 50; // approx gap (2.5rem)
+            const currentScroll = productList.scrollLeft;
+            const maxScroll = productList.scrollWidth - productList.clientWidth;
+
+            let nextScroll = currentScroll + cardWidth + gap;
+
+            // If we are at or near the end, loop back to start smoothly
+            if (currentScroll >= (maxScroll - 10)) {
+                productList.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                productList.scrollTo({ left: nextScroll, behavior: 'smooth' });
+            }
+        }, 5000); //  seconds interval
+    }
+
+    function stopRotation() {
+        if (rotationInterval) clearInterval(rotationInterval);
+    }
+
+    // Start rotation on load
+    startRotation();
+
+    // Restart on resize
+    window.addEventListener('resize', () => {
+        startRotation();
+    });
+
+    // Pause on interaction
+    if (productList) {
+        productList.addEventListener('touchstart', stopRotation);
+        productList.addEventListener('touchend', () => setTimeout(startRotation, 5000)); // Resume after 5s
+
+        // Interaction for desktop
+        productList.addEventListener('mouseenter', stopRotation);
+        productList.addEventListener('mouseleave', () => startRotation());
+    }
+});
